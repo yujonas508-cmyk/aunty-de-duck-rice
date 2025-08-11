@@ -219,7 +219,7 @@ function confirmOrder() {
         total: grandTotal
     };
 
-    // <-- PASTE your Web App URL here -->
+    // <-- https://script.google.com/macros/s/AKfycbyHqmmQ09gBxEH6Cxg5PUG11BZYKXzdZ97rtRZmXY8Xv4MzrFg93vIhrhE1OLPs18TP2g/exec -->
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyHqmmQ09gBxEH6Cxg5PUG11BZYKXzdZ97rtRZmXY8Xv4MzrFg93vIhrhE1OLPs18TP2g/exec";
 
     // send POST

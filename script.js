@@ -219,8 +219,8 @@ function confirmOrder() {
         total: grandTotal
     };
 
-    // <-- https://script.google.com/macros/s/AKfycbyHqmmQ09gBxEH6Cxg5PUG11BZYKXzdZ97rtRZmXY8Xv4MzrFg93vIhrhE1OLPs18TP2g/exec -->
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyHqmmQ09gBxEH6Cxg5PUG11BZYKXzdZ97rtRZmXY8Xv4MzrFg93vIhrhE1OLPs18TP2g/exec";
+    // <-- paste your URL here -->
+    const WEB_APP_URL = "https://script.google.com/macros/library/d/1PSHWTPG9Auc-ii8fDvwo6oGhSlDjRoPgZ81BkJDAAGtipW1OsSjR9H0Z/3";
 
     // send POST
     fetch(WEB_APP_URL, {

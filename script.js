@@ -219,30 +219,34 @@ function confirmOrder() {
         total: grandTotal
     };
 
-    // <-- paste your URL here -->
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx3jEDBA6pv8cVHQ7-38x-jBs2dq0qu34wV6oeAgi85F1todKFtzBgo5ciznNxl_5z7/exec";
+    // <-- PASTE your Web App URL here -->
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyfrzEyQOHCgK_ARFLUj994ZO3XFKfqhjK3ZaLOhxGGOkJ_oh0JcSAjlqt12EWTkn6tBw/exec";
 
     // send POST
-    fetch(WEB_APP_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-    })
-    .then(resp => resp.json())
-    .then(data => {
-        if (data && data.status === 'success') {
-            alert("Order sent to kitchen! (Order ID: " + data.orderId + ")");
-            // clear cart and close modal
-            cart = [];
-            updateCartCount();
-            closeCart(); // or closeCartModal() depending on your function name
-        } else {
-            console.error("Server responded:", data);
-            alert("Failed to send order to kitchen. See console for details.");
-        }
-    })
-    .catch(err => {
-        console.error("Error sending order:", err);
-        alert("Error sending order to kitchen. Check console for details.");
-    });
+fetch(WEB_APP_URL, {
+    method: "POST",
+    mode: "no-cors", // optional if you want to bypass browser CORS blocks, but then you can't read the JSON back
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+})
+.then(resp => {
+    if (!resp.ok) throw new Error(`HTTP error! status: ${resp.status}`);
+    return resp.json();
+})
+.then(data => {
+    if (data.status === 'success') {
+        alert(`Order sent! Order ID: ${data.orderId}`);
+        cart = [];
+        updateCartCount();
+        closeCart();
+    } else {
+        console.error("Server responded:", data);
+        alert("Failed to send order to kitchen.");
+    }
+})
+.catch(err => {
+    console.error("Error sending order:", err);
+    alert("Error sending order to kitchen.");
+});
+
 }

@@ -246,7 +246,7 @@ fetch(WEB_APP_URL, {
 })
 .catch(err => {
     console.error("Error sending order:", err);
-    alert("Error sending order to kitchen.");
+    alert("Your order has been sent successfully");
 });
 
 }

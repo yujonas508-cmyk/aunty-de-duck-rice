@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aunty de 鸭饭 Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🍖aunty de 鸭饭 Menu</h1>
+    </header>
+
+    <!-- Shop Banner -->
+    <div class="shop-banner">
+        <img src="images/shop-banner.jpg" alt="aunty de 鸭饭">
+    </div>
+
+    <main>
+        <div id="menu"></div>
+    </main>
+
+    <!-- Modal for options -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modal-title"></h2>
+            <div id="rice-options"></div>
+            <div id="meat-options"></div>
+            <button onclick="confirmSelection()">Confirm</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <footer>
+        <button onclick="viewOrder()">View Order <span id="cart-count">(0)</span></button>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

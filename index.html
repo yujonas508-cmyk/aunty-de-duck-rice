@@ -31,6 +31,18 @@
         </div>
     </div>
 
+    <!-- just added -->
+<div id="cart-modal" class="modal">
+    <div class="modal-content">
+        <h2>🛒 Your Cart</h2>
+        <div id="cart-items"></div>
+        <div id="cart-totals"></div>
+        <button onclick="confirmOrder()">Confirm Order</button>
+        <button onclick="closeCart()">Close</button>
+    </div>
+</div>
+
+
     <footer>
         <button onclick="viewOrder()">View Order <span id="cart-count">(0)</span></button>
     </footer>

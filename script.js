@@ -139,3 +139,110 @@ document.getElementById("modal").addEventListener("click", (e) => {
 });
 
 loadMenu();
+
+
+function viewOrder() {
+    if (cart.length === 0) {
+        alert("您的购物车是空的");
+        return;
+    }
+    renderCart();
+    document.getElementById("cart-modal").style.display = "block";
+}
+
+function renderCart() {
+    const cartDiv = document.getElementById("cart-items");
+    cartDiv.innerHTML = "";
+    let subtotal = 0;
+
+    cart.forEach((item, index) => {
+        const total = item.price * item.quantity;
+        subtotal += total;
+        cartDiv.innerHTML += `
+            <div class="cart-item">
+                <span>${item.name} x${item.quantity} - RM ${total.toFixed(2)}</span>
+                <button onclick="removeFromCart(${index})">Remove</button>
+            </div>
+        `;
+    });
+
+    const sst = subtotal * 0.06;
+    const serviceTax = subtotal * 0.10;
+    const grandTotal = subtotal + sst + serviceTax;
+
+    document.getElementById("cart-totals").innerHTML = `
+        小计: RM ${subtotal.toFixed(2)}<br>
+        SST (6%): RM ${sst.toFixed(2)}<br>
+        服务费 (10%): RM ${serviceTax.toFixed(2)}<br>
+        总计: RM ${grandTotal.toFixed(2)}
+    `;
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartCount();
+    renderCart();
+}
+
+function closeCart() {
+    document.getElementById("cart-modal").style.display = "none";
+}
+
+// Replaced if u wan it to be linked with spreadsheet
+function confirmOrder() {
+    if (!cart || cart.length === 0) {
+        alert("购物车是空的");
+        return;
+    }
+
+    // Ask user to confirm sending to kitchen
+    if (!confirm("Send this order to the kitchen?")) {
+        return;
+    }
+
+    // compute totals (same logic as your viewOrder)
+    let subtotal = 0;
+    cart.forEach(item => subtotal += item.price * item.quantity);
+    const sst = parseFloat((subtotal * 0.06).toFixed(2));
+    const serviceTax = parseFloat((subtotal * 0.10).toFixed(2));
+    const grandTotal = parseFloat((subtotal + sst + serviceTax).toFixed(2));
+
+    // build payload
+    const orderId = 'ORD' + Date.now();
+    const payload = {
+        orderId: orderId,
+        timestamp: new Date().toISOString(),
+        items: cart,         // each item: {name, price, quantity, ...}
+        subtotal: subtotal,
+        sst: sst,
+        serviceTax: serviceTax,
+        total: grandTotal
+    };
+
+    // <-- PASTE your Web App URL here -->
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyHqmmQ09gBxEH6Cxg5PUG11BZYKXzdZ97rtRZmXY8Xv4MzrFg93vIhrhE1OLPs18TP2g/exec";
+
+    // send POST
+    fetch(WEB_APP_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        if (data && data.status === 'success') {
+            alert("Order sent to kitchen! (Order ID: " + data.orderId + ")");
+            // clear cart and close modal
+            cart = [];
+            updateCartCount();
+            closeCart(); // or closeCartModal() depending on your function name
+        } else {
+            console.error("Server responded:", data);
+            alert("Failed to send order to kitchen. See console for details.");
+        }
+    })
+    .catch(err => {
+        console.error("Error sending order:", err);
+        alert("Error sending order to kitchen. Check console for details.");
+    });
+}

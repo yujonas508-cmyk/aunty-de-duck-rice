@@ -220,7 +220,7 @@ function confirmOrder() {
     };
 
     // <-- paste your URL here -->
-    const WEB_APP_URL = "https://script.google.com/macros/library/d/1PSHWTPG9Auc-ii8fDvwo6oGhSlDjRoPgZ81BkJDAAGtipW1OsSjR9H0Z/3";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx3jEDBA6pv8cVHQ7-38x-jBs2dq0qu34wV6oeAgi85F1todKFtzBgo5ciznNxl_5z7/exec";
 
     // send POST
     fetch(WEB_APP_URL, {
